@@ -1,0 +1,10 @@
+{
+  "format": 1,
+  "algorithm": "sha256",
+  "root_folder": "/home/ubuntu/INFOZATECH/Task-2-File-Integrity-Checker/sample_folder",
+  "created_at_utc": "2026-09-12T22:36:09.679099+00:00",
+  "files": {
+    "config.txt": "2963e75215a9a7ab027c6be012b803f4efba217d0b0bfcd9c0cda3a231562e2e",
+    "welcome.txt": "f6defa9c3cb1b1edcb96b50128f486491cbbdbe7304f3b5532e1aae66e16b8cd"
+  }
+}

@@ -1,0 +1,12 @@
+Authorized demo result
+
+Baseline: 2 files recorded
+After the controlled test changes:
+- ADDED: new_file.txt
+- MODIFIED: welcome.txt
+- DELETED: config.txt
+
+STATUS: Changes detected.
+Exit code: 2 means changes were detected.
+
+Scope: sample_folder included in this repository only.
