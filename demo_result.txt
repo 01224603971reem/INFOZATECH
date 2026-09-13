@@ -1,12 +1,10 @@
-Authorized demo result
+Authorized localhost demo
 
-Baseline: 2 files recorded
-After the controlled test changes:
-- ADDED: new_file.txt
-- MODIFIED: welcome.txt
-- DELETED: config.txt
+Test 1: No local service on 127.0.0.1:8080
+Result: Open ports found: 0
 
-STATUS: Changes detected.
-Exit code: 2 means changes were detected.
+Test 2: Temporary HTTP demo server on 127.0.0.1:8080
+Result: OPEN: 8080/tcp | typical service: HTTP alternate
+Open ports found: 1
 
-Scope: sample_folder included in this repository only.
+The temporary server was stopped after the test. No external hosts or networks were scanned.

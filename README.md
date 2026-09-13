@@ -1,77 +1,44 @@
-# File Integrity Checker
+# Local Network Port Scanner
 
-A defensive cybersecurity tool that uses SHA-256 hashes to detect files that have been added, modified, or deleted from an authorized folder.
+An educational Python TCP port scanner for authorized defensive testing. It checks selected ports on a target host and reports open ports with typical service names.
 
-## Objective
+## Safety Scope
 
-File integrity monitoring helps identify unexpected changes in important files. This project creates a baseline snapshot and compares future scans against it.
-
-## Ethical Scope
-
-Use this tool only on folders and systems that you own or have explicit permission to manage. The tool reads files to calculate hashes and does not modify the scanned folder.
+The tool allows only `localhost` and loopback addresses by default. A non-loopback target requires the explicit `--allow-authorized-target` flag and must belong to you or be covered by written permission. Never scan public IPs, school or company networks, or other people's devices without authorization.
 
 ## Requirements
 
 - Python 3.8 or later
-- No external packages are required
+- No external packages
 
-## Project Structure
-
-```text
-Task-2-File-Integrity-Checker/
-├── integrity_checker.py
-├── README.md
-└── sample_folder/
-    ├── config.txt
-    └── welcome.txt
-```
-
-## Usage
-
-From this folder, create a baseline:
+## Run on Localhost
 
 ```bash
-python3 integrity_checker.py baseline sample_folder --output baseline.json
+python3 port_scanner.py
 ```
 
-Compare the folder with the saved baseline:
+This checks a small set of common ports: 22, 80, 443, and 8080.
+
+To specify ports:
 
 ```bash
-python3 integrity_checker.py compare sample_folder --baseline baseline.json
+python3 port_scanner.py 127.0.0.1 --ports 22 80-82 8080
 ```
 
-The comparison reports:
+The range limit is intentionally small for this educational project.
 
-- **ADDED**: a new file exists now but was not in the baseline.
-- **MODIFIED**: a file exists in both scans, but its SHA-256 hash changed.
-- **DELETED**: a baseline file is no longer present.
+## Output
 
-The program exits with status `0` when no changes are detected, `2` when changes are detected, and `1` for an execution error.
+The scanner reports open TCP ports and a typical service associated with each port. A service label is only a common convention; the actual service should be verified using authorized system administration tools.
 
-## Demonstration
+## Why Open Ports Matter
 
-1. Run the baseline command.
-2. Edit `sample_folder/welcome.txt`.
-3. Create a new file inside `sample_folder`.
-4. Delete one of the original files.
-5. Run the compare command and review the report.
+An open port means a TCP service is reachable. It is not automatically a vulnerability, but every exposed service increases the system's attack surface. Administrators should identify the service, keep it updated, require appropriate authentication, restrict network access, and disable unnecessary services.
 
-Example output:
+## Demo
 
-```text
-Added: 1 | Modified: 1 | Deleted: 1
-ADDED: new_file.txt
-MODIFIED: welcome.txt
-DELETED: config.txt
-STATUS: Changes detected.
-```
+A safe demo can run a temporary HTTP server on `localhost`, scan only port 8080, observe the open result, stop the server, and run the scan again to observe that the port is no longer open. Use a test server and do not scan any external host.
 
-## Security Notes
+## Limitations
 
-SHA-256 is used for integrity comparison, not for password storage. A hash change indicates that file content changed; it does not by itself explain who changed the file or whether the change is malicious. For production monitoring, protect the baseline file from unauthorized modification and store it separately from the monitored folder.
-
-## Internship Deliverables
-
-- Source code: `integrity_checker.py`
-- Documentation: `README.md`
-- Demo evidence: terminal screenshots or a short screen-recording showing baseline creation, file changes, and the comparison report.
+This is a simple TCP connect scanner. It does not perform stealth scanning, service fingerprinting, vulnerability exploitation, UDP scanning, or OS detection. A closed/filtered result can also be caused by a firewall or timeout.

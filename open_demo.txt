@@ -1,0 +1,5 @@
+Authorized educational scan: 127.0.0.1 (127.0.0.1)
+Ports checked: 1 | Timeout: 0.5s
+OPEN: 8080/tcp | typical service: HTTP alternate
+Open ports found: 1
+Note: An open port is not automatically a vulnerability; it indicates a reachable service that should be identified, updated, and access-controlled.

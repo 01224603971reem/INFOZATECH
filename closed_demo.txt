@@ -1,0 +1,4 @@
+Authorized educational scan: 127.0.0.1 (127.0.0.1)
+Ports checked: 1 | Timeout: 0.5s
+Open ports found: 0
+Note: An open port is not automatically a vulnerability; it indicates a reachable service that should be identified, updated, and access-controlled.
