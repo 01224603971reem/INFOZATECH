@@ -1,10 +1,8 @@
-Authorized localhost demo
+Authorized local demo using training-only data
 
-Test 1: No local service on 127.0.0.1:8080
-Result: Open ports found: 0
+AES-GCM round-trip: PASS
+Caesar encrypt/decrypt: PASS
 
-Test 2: Temporary HTTP demo server on 127.0.0.1:8080
-Result: OPEN: 8080/tcp | typical service: HTTP alternate
-Open ports found: 1
+The AES test encrypted and decrypted a small sample message using a training-only passphrase. The password and plaintext were used only in memory and were not committed to the repository.
 
-The temporary server was stopped after the test. No external hosts or networks were scanned.
+Security note: Caesar is for education only. AES-GCM is the modern demonstration, with random salt, random nonce, PBKDF2-HMAC-SHA256 key derivation, and authentication.

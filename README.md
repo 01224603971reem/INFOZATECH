@@ -1,44 +1,56 @@
-# Local Network Port Scanner
+# Encryption & Decryption Toolkit
 
-An educational Python TCP port scanner for authorized defensive testing. It checks selected ports on a target host and reports open ports with typical service names.
+An educational Python toolkit that demonstrates a classical Caesar cipher and a modern authenticated symmetric cipher, AES-256-GCM.
 
-## Safety Scope
+## Safety Notes
 
-The tool allows only `localhost` and loopback addresses by default. A non-loopback target requires the explicit `--allow-authorized-target` flag and must belong to you or be covered by written permission. Never scan public IPs, school or company networks, or other people's devices without authorization.
+Use only test data that you own. The toolkit does not store passwords. Never commit real passwords, secret keys, private documents, or production encrypted data to GitHub.
 
 ## Requirements
 
 - Python 3.8 or later
-- No external packages
+- `cryptography` package
 
-## Run on Localhost
-
-```bash
-python3 port_scanner.py
-```
-
-This checks a small set of common ports: 22, 80, 443, and 8080.
-
-To specify ports:
+Install the dependency:
 
 ```bash
-python3 port_scanner.py 127.0.0.1 --ports 22 80-82 8080
+python3 -m pip install cryptography
 ```
 
-The range limit is intentionally small for this educational project.
+## 1. Caesar Cipher
 
-## Output
+The Caesar cipher is included for learning only and is not secure for real data:
 
-The scanner reports open TCP ports and a typical service associated with each port. A service label is only a common convention; the actual service should be verified using authorized system administration tools.
+```bash
+python3 encryption_toolkit.py caesar encrypt "Hello InfozaTech" --shift 3
+python3 encryption_toolkit.py caesar decrypt "Khoor Lqircdwhfk" --shift 3
+```
 
-## Why Open Ports Matter
+## 2. AES-256-GCM
 
-An open port means a TCP service is reachable. It is not automatically a vulnerability, but every exposed service increases the system's attack surface. Administrators should identify the service, keep it updated, require appropriate authentication, restrict network access, and disable unnecessary services.
+AES-GCM provides modern symmetric encryption with authentication. The tool derives a key from an interactively entered passphrase using PBKDF2-HMAC-SHA256, a random salt, and a random nonce.
 
-## Demo
+Encrypt a small test file:
 
-A safe demo can run a temporary HTTP server on `localhost`, scan only port 8080, observe the open result, stop the server, and run the scan again to observe that the port is no longer open. Use a test server and do not scan any external host.
+```bash
+python3 encryption_toolkit.py aes encrypt sample_message.txt encrypted.json
+```
+
+Decrypt it:
+
+```bash
+python3 encryption_toolkit.py aes decrypt encrypted.json recovered_message.txt
+```
+
+The password is entered interactively and is not included in the command line.
+
+## Classical vs Modern Encryption
+
+| Method | Strength | Limitation |
+|---|---|---|
+| Caesar | Easy to understand and useful for teaching substitution concepts | Easily broken and unsuitable for protecting real information |
+| AES-256-GCM | Modern authenticated encryption when used with secure key management | Requires secure password/key handling and correct nonce usage |
 
 ## Limitations
 
-This is a simple TCP connect scanner. It does not perform stealth scanning, service fingerprinting, vulnerability exploitation, UDP scanning, or OS detection. A closed/filtered result can also be caused by a firewall or timeout.
+This is an educational toolkit for small local files. It is not a replacement for a reviewed production encryption system or a full key-management service. AES-GCM does not protect a weak password, and losing the password means the encrypted content cannot be recovered.
